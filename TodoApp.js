@@ -9,7 +9,7 @@ class TodoApp extends React.Component {
     return (
       <div>
         <TodoHeader
-          name="React ToDo Demo"
+          title="React ToDo Demo"
           username="Dylan"
           todoCount={123}
         />
