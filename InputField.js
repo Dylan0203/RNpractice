@@ -3,7 +3,7 @@ class InputField extends React.Component {
     return (
       <div className="inputfield">
         <h1>InputField</h1>
-        <input type="text" placeholder="whatever..."/>
+        <input type="text" {...this.props}/>
       </div>
     );
   }

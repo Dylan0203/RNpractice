@@ -8,8 +8,14 @@ class TodoApp extends React.Component {
   render() {
     return (
       <div>
-        <TodoHeader />
-        <InputField />
+        <TodoHeader
+          name="React ToDo Demo"
+          username="Dylan"
+          todoCount={123}
+        />
+        <InputField
+          placeholder="whatever..."
+        />
         <TodoList />
       </div>
     );
