@@ -4,6 +4,24 @@ const {
   TodoList
   } = window.App;
 
+const todos = [
+  {
+    id: 0,
+    title: 'Item 1',
+    completed: true
+  },
+  {
+    id: 1,
+    title: 'Item 2',
+    completed: false
+  },
+  {
+    id: 2,
+    title: 'Item 3',
+    completed: false
+  }
+]
+
 class TodoApp extends React.Component {
   render() {
     return (
@@ -11,12 +29,12 @@ class TodoApp extends React.Component {
         <TodoHeader
           title="React ToDo Demo"
           username="Dylan"
-          todoCount={123}
+          todoCount={todos.filter((todo) => !todo.completed).length}
         />
         <InputField
           placeholder="whatever..."
         />
-        <TodoList />
+        <TodoList todos={todos}/>
       </div>
     );
   }

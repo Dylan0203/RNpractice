@@ -4,11 +4,11 @@ class TodoItem extends React.Component {
     const { title, completed } = this.props;
 
     return (
-      <li>
+      <div>
         <input type="checkbox" checked={completed}/>
         <span>{title}</span>
         <button>x</button>
-      </li>
+      </div>
     );
   }
 }
