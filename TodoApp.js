@@ -4,6 +4,33 @@ const {
   TodoList
 } = window.App;
 
+const _deleteTodo = (todos, id) => {
+  const idx = todos.findIndex((todo) => todo.id === id);
+  if (idx !== -1) todos.splice(idx, 1);
+  return todos;
+};
+
+const _toggleTodo = (todos, id, completed) => {
+  const target = todos.find((todo) => todo.id === id);
+  if (target) target.completed = completed;
+  return todos;
+};
+
+const _createTodo = (todos, title) => {
+  todos.push({
+    id: todos[todos.length - 1].id + 1,
+    title,
+    completed: false
+  });
+  return todos;
+};
+
+const _updateTodo = (todos, id, title) => {
+  const target = todos.find((todo) => todo.id === id);
+  if (target) target.title = title;
+  return todos;
+};
+
 class TodoApp extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -29,6 +56,14 @@ class TodoApp extends React.Component {
     };
   }
 
+  updateTodoBy(updateFn) {
+    return (...args) => {
+      this.setState({
+        todos: updateFn(this.state.todos, ...args)
+      });
+    };
+  }
+
   render() {
     const { todos } = this.state;
     return (
@@ -40,24 +75,17 @@ class TodoApp extends React.Component {
         />
         <InputField
           placeholder="whatever..."
+          onSubmitEditing={this.updateTodoBy(_createTodo)}
         />
         <TodoList
           todos={todos}
-          onDeleteTodo={
-            (id) => this.setState({
-              todos: _deleteTodo(todos, id)
-            })
-          }
+          onDeleteTodo={this.updateTodoBy(_deleteTodo)}
+          onToggleTodo={this.updateTodoBy(_toggleTodo)}
+          onUpdateTodo={this.updateTodoBy(_updateTodo)}
         />
       </div>
     );
   }
 }
-
-const _deleteTodo = (todos, id) => {
-  const idx = todos.findIndex((todo) => todo.id === id);
-  if (idx !== -1) todos.splice(idx, 1);
-  return todos;
-};
 
 window.App.TodoApp = TodoApp;

@@ -18,11 +18,14 @@ class TodoItem extends React.Component {
   }
 
   renderViewMode() {
-    const { title, completed, onDelete } = this.props;
+    const { title, completed, onDelete, onToggle } = this.props;
 
     return (
       <div>
-        <input type="checkbox" checked={completed}/>
+        <input type="checkbox"
+          checked={completed}
+          onChange={() => onToggle && onToggle(!completed)}
+        />
         <span onDoubleClick={this.toggleEditMode}>{title}</span>
         <button onClick={() => onDelete && onDelete()}>x</button>
       </div>
@@ -30,17 +33,23 @@ class TodoItem extends React.Component {
   }
 
   renderEditMode() {
+    const { title, onUpdate } = this.props;
     return (
       <InputField
         autoFocus
         placeholder='Edit Todo list'
-        value={this.props.title}
+        value={title}
         onBlur={this.toggleEditMode}
         onKeyDown={(e) => {
           if (e.keyCode === 27) {
             e.preventDefault();
             this.toggleEditMode();
           }
+        }}
+
+        onSubmitEditing={(content) => {
+          onUpdate && onUpdate(content);
+          this.toggleEditMode();
         }}
       />
     );
@@ -50,7 +59,9 @@ class TodoItem extends React.Component {
 TodoItem.propTypes = {
   title: React.PropTypes.string.isRequired,
   completed: React.PropTypes.bool.isRequired,
-  onDelete: React.PropTypes.func
+  onDelete: React.PropTypes.func,
+  onToggle: React.PropTypes.func,
+  onUpdate: React.PropTypes.func
 };
 
 window.App.TodoItem = TodoItem;
