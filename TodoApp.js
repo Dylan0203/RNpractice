@@ -17,8 +17,19 @@ const _toggleTodo = (todos, id, completed) => {
 };
 
 const _createTodo = (todos, title) => {
+  const setIdForNewItem = (todos) => {
+    var newId
+    if (todos.length == 0) {
+      newId = 0
+    }
+    else {
+      newId = todos[todos.length - 1].id + 1
+    }
+    return newId
+  };
+
   todos.push({
-    id: todos[todos.length - 1].id + 1,
+    id: setIdForNewItem(todos),
     title,
     completed: false
   });
