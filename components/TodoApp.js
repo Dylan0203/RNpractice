@@ -52,7 +52,7 @@ class TodoApp extends React.Component {
   }
 
   componentDidMount() {
-    fetch('./todo.json')
+    fetch('./todos.json')
       .then((response) => response.json())
       .then((todos) => this.setState({ todos }));
   }
