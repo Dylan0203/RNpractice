@@ -11,8 +11,8 @@ window.App.TodoActions = {
     });
   },
   loadTodos() {
-    fatch('./todos.json')
-    .then((response) => response.jspn())
+    fetch('./todos.json')
+    .then((response) => response.json())
     .then((todos) => AppDispatcher.dispatch({
       type: ActionTypes.LOAD_TODOS_SUCCESS,
       todos
